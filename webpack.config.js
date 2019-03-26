@@ -23,5 +23,8 @@ module.exports = {
     },
     resolve: {
         extensions: ['.ts']
+    },
+    externals: {
+        three: 'three',
     }
 }
