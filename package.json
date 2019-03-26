@@ -13,6 +13,7 @@
     "3D"
   ],
   "author": "ken",
+  "repository": "git@github.com:vivihoo03/planehelper.git",
   "license": "ISC",
   "dependencies": {
     "three": "^0.102.1"
