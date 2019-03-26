@@ -2,9 +2,11 @@
   "name": "planehelper",
   "version": "1.0.0",
   "description": "extend three plane",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "keywords": [
     "three",
@@ -16,6 +18,15 @@
   "repository": "git@github.com:vivihoo03/planehelper.git",
   "license": "ISC",
   "dependencies": {
+    "@types/three": "^0.93.28",
+    "dts-gen": "^0.5.7",
+    "global": "^4.3.2",
     "three": "^0.102.1"
+  },
+  "devDependencies": {
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.4000",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }

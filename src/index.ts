@@ -1,10 +1,12 @@
 
+"use strict";
 /**
  * PlaneHelper is helperful to switch between 
  * 2d and 3d plane point operation
  **/
 
-import THREE, { Vector3 as V3, Plane as P3 } from 'three';
+import * as THREE from 'three';
+import { Vector3 as V3, Plane as P3 } from 'three'; 
 
 interface XYZ {
     x: number;
@@ -35,6 +37,15 @@ export class PlaneHelper {
         planeHp.setOrigin(origin3);
         return planeHp;
     }
+
+    static copy(planeHp: PlaneHelper) {
+        let { Normal, origin, xRay} = planeHp;
+        Normal = new V3().copy(Normal);
+        origin = new V3().copy(origin);
+        xRay = new V3().copy(xRay);
+        return  PlaneHelper.createPlane(Normal, origin, xRay);
+    }
+
 
     constructor(plane: P3, xRay: V3) {
         this.plane = plane;
@@ -69,15 +80,6 @@ export class PlaneHelper {
     set YRay(v: V3) {
         this.yRay = new V3().copy((v as V3));
     }
-
-    static copy(planeHp: PlaneHelper) {
-        let { Normal, origin, xRay} = planeHp;
-        Normal = new V3().copy(Normal);
-        origin = new V3().copy(origin);
-        xRay = new V3().copy(xRay);
-        return  PlaneHelper.createPlane(Normal, origin, xRay);
-    }
-
 
     public setOrigin(origin: XYZ) {
         this.origin = new V3().copy((origin as V3));
