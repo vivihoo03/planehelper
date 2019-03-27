@@ -6,7 +6,7 @@
  **/
 
 import * as THREE from 'three';
-import { Vector3 as V3, Plane as P3 } from 'three'; 
+import { Vector3 as V3, Plane as P3, Vector2 as V2 } from 'three'; 
 
 interface XYZ {
     x: number;
@@ -38,7 +38,7 @@ export class PlaneHelper {
         return planeHp;
     }
 
-    static copy(planeHp: PlaneHelper) {
+    static copy(planeHp: PlaneHelper) : PlaneHelper {
         let { Normal, origin, xRay} = planeHp;
         Normal = new V3().copy(Normal);
         origin = new V3().copy(origin);
@@ -85,31 +85,31 @@ export class PlaneHelper {
         this.origin = new V3().copy((origin as V3));
     }
 
-    public convertTo2D(point: V3) {
+    public convertTo2D(point: V3): V2 {
         if (point && !point.sub) point = new V3().copy(point);
         const planeVec = point.sub(this.origin);
         const xval = planeVec.dot(this.xRay);
         const yval = planeVec.dot(this.yRay);
-        return new THREE.Vector2(xval, yval);
+        return new V2(xval, yval);
     }
 
-    public convertTo3D(point: XY) {
+    public convertTo3D(point: XY):V3 {
         return this.xRay.clone().multiplyScalar(point.x).add(this.yRay.clone().multiplyScalar(point.y)).add(this.origin);
     }
 
-    public convertTo2DVec(point) {
+    public convertTo2DVec(point: V3): V2 {
         if (point && !point.sub) point = new V3().copy(point);
         const planeVec = point;
         const xval = planeVec.dot(this.xRay);
         const yval = planeVec.dot(this.yRay);
-        return new THREE.Vector2(xval, yval);
+        return new V2(xval, yval);
     }
 
-    public converTo3DVec(vec) {
+    public converTo3DVec(vec: XY): V3 {
         return this.xRay.clone().multiplyScalar(vec.x).add(this.yRay.clone().multiplyScalar(vec.y));
     }
 
-    public intersectInfinityLine(line) {
+    public intersectInfinityLine(line: THREE.Line3): V3 {
         const result = new V3();
         const direction = line.delta(new V3());
         const denominator = this.plane.normal.dot(direction);
@@ -128,7 +128,7 @@ export class PlaneHelper {
         return result.copy(direction).multiplyScalar(t).add(line.start);
     }
 
-    public intesectLine(line) {
+    public intesectLine(line: THREE.Line3): V3 {
         let interPnt = this.plane.intersectLine(line, new V3());
         if (!(interPnt instanceof V3)) {
             console.warn('Intersect with finity line failed. Try use Infinity.');
@@ -140,22 +140,22 @@ export class PlaneHelper {
         return interPnt;
     }
 
-    public intersectSegment(segment) {
+    public intersectSegment(segment: THREE.Line3): V3 {
         return this.plane.intersectLine(segment, new V3());
     }
 
-    public projectPoint(point, target) {
+    public projectPoint(point: V3, target: V3) {
         return this.plane.projectPoint(point, target);
     }
 
-    public applyMatrix4(mat: THREE.Matrix4) {
+    public applyMatrix4(mat: THREE.Matrix4) : PlaneHelper {
         this.plane.applyMatrix4(mat);
         this.xRay.applyMatrix4(mat);
         this.yRay.applyMatrix4(mat);
         return this;
     }
 
-    public getTransMatrix() {
+    public getTransMatrix(): THREE.Matrix4 {
         let plane = PlaneHelper.copy(this);
         let xDir = new V3().copy(plane.xRay);
         let yDir = new V3().copy(plane.yRay);
@@ -164,7 +164,7 @@ export class PlaneHelper {
         return baseMatrix;
     }
 
-    public toMetaData() {
+    public toMetaData() : {origin: V3, xray: V3, normal: V3} {
         return {
             origin: this.Origin,
             xray: this.XRay,
