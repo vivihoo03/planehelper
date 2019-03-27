@@ -3,7 +3,7 @@
  * 2d and 3d plane point operation
  **/
 import * as THREE from 'three';
-import { Vector3 as V3, Plane as P3 } from 'three';
+import { Vector3 as V3, Plane as P3, Vector2 as V2 } from 'three';
 interface XYZ {
     x: number;
     y: number;
@@ -26,20 +26,20 @@ export declare class PlaneHelper {
     XRay: V3;
     YRay: V3;
     setOrigin(origin: XYZ): void;
-    convertTo2D(point: V3): THREE.Vector2;
-    convertTo3D(point: XY): THREE.Vector3;
-    convertTo2DVec(point: any): THREE.Vector2;
-    converTo3DVec(vec: any): THREE.Vector3;
-    intersectInfinityLine(line: any): THREE.Vector3;
-    intesectLine(line: any): THREE.Vector3;
-    intersectSegment(segment: any): THREE.Vector3;
-    projectPoint(point: any, target: any): THREE.Vector3;
-    applyMatrix4(mat: THREE.Matrix4): this;
+    convertTo2D(point: V3): V2;
+    convertTo3D(point: XY): V3;
+    convertTo2DVec(point: V3): V2;
+    converTo3DVec(vec: XY): V3;
+    intersectInfinityLine(line: THREE.Line3): V3;
+    intesectLine(line: THREE.Line3): V3;
+    intersectSegment(segment: THREE.Line3): V3;
+    projectPoint(point: V3, target: V3): THREE.Vector3;
+    applyMatrix4(mat: THREE.Matrix4): PlaneHelper;
     getTransMatrix(): THREE.Matrix4;
     toMetaData(): {
-        origin: THREE.Vector3;
-        xray: THREE.Vector3;
-        normal: THREE.Vector3;
+        origin: V3;
+        xray: V3;
+        normal: V3;
     };
 }
 export {};
