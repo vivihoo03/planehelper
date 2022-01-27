@@ -21,7 +21,7 @@
     "@types/three": "^0.93.28",
     "dts-gen": "^0.5.7",
     "global": "^4.3.2",
-    "three": "^0.102.1"
+    "three": "^0.137.0"
   },
   "devDependencies": {
     "ts-loader": "^5.3.3",
